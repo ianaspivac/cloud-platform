@@ -1,0 +1,371 @@
+@import '@fontsource/fira-mono';
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=MuseoModerno&display=swap');
+@import '../../node_modules/ress/ress.css';
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
+
+$font-lato: 'Lato',
+sans-serif;
+$green: #3B7C5D;
+$light-green: #B0C8BC;
+$bright-green: #54AF83;
+$dark-green: #18834f;
+$white: #F5F5F7;
+$black: #151516;
+$red: #923A1E;
+$violet: #6556BF;
+$light-gray: #B1B1B2;
+$gray: #9B9A9A;
+$coral: #FB6E6E;
+$gray-dark: #737373;
+$color-bg-0: rgb(202, 216, 228);
+$color-bg-1: hsl(209, 36%, 86%);
+$color-bg-2: hsl(224, 44%, 95%);
+$color-theme-1: #ff3e00;
+$color-theme-2: #4075a6;
+$color-text: rgba(0, 0, 0, 0.7);
+$column-width: 42rem;
+$column-margin-top: 4rem;
+
+$header-background: linear-gradient(180deg, #151516 0%, rgba(21, 21, 22, 0.83) 96.87%);
+$header-border-color: linear-gradient(138.32deg, #CDCDCD 23.55%, rgba(57, 48, 48, 0.16) 48.13%, rgba(255, 255, 255, 0.03) 75.9%);
+$header-shadow: 0px 4px 24px -1px #00000040;
+
+$table-header-color: rgba(102, 102, 105, 0.16);
+$table-header-border-color: #F5F5F738;
+
+$table-row-color: linear-gradient(90.84deg, rgba(0, 0, 0, 0.25) 0%, rgba(217, 217, 217, 0) 100.66%);
+$table-row-border-color: linear-gradient(180deg, #3E3B3B 0%, rgba(62, 59, 59, 0.54) 48.96%, rgba(62, 59, 59, 0.03) 99.99%);
+
+$color-border-card-course: linear-gradient(135.88deg, #141439 0%, rgba(41, 24, 63, 0.54) 41.57%, rgba(105, 78, 110, 0.03) 100%);
+$shadow-card-course: 0px 4px 24px -1px rgba(0, 0, 0, 0.25);
+$color-card-course: linear-gradient(136.41deg, #1C1C39 2.44%, rgba(42, 32, 55, 0.54) 43%, rgba(57, 43, 60, 0.03) 100%);
+$blur: blur(2px);
+
+$font-body: Arial,
+-apple-system,
+BlinkMacSystemFont,
+'Segoe UI',
+Roboto,
+Oxygen,
+Ubuntu,
+Cantarell,
+'Open Sans',
+'Helvetica Neue',
+sans-serif;
+$font-mono: 'Fira Mono',
+monospace;
+
+@mixin green-link-btn() {
+	border: 1px solid $green;
+	border-radius: 9px;
+	color: $white;
+	cursor: pointer;
+	display: inline-block;
+	font-size: 15px;
+	font-weight: 700;
+	margin-left: auto;
+	padding: 11px 32px;
+}
+
+@mixin gray-card() {
+	align-items: center;
+	background: linear-gradient(90.84deg, rgba(49, 49, 49, 0.25) 0%, rgba(217, 217, 217, 0) 100.66%);
+	backdrop-filter: blur(5px);
+	border: 1px solid;
+	border-image-source: linear-gradient(180deg, #3E3B3B 0%, rgba(62, 59, 59, 0.54) 48.96%, rgba(62, 59, 59, 0.03) 99.99%);        
+	border-radius: 9px;
+	box-shadow: 0px 4px 12px -1px rgba(0, 0, 0, 0.25);
+	display: flex;
+	font-weight: 700;
+}
+
+@mixin table-card() {
+	@include gray-card;
+	justify-content: space-between;
+	padding: 13px 20px;
+
+	a {
+		@include green-link-btn;
+		&:hover {
+			text-decoration: none;
+		}
+	}
+}
+
+:root {
+	color: $color-text;
+
+	font-family: $font-lato;
+	font-size: 15px;
+	font-weight: 400;
+}
+
+ul {
+	list-style: none;
+}
+
+body {
+	min-height: 100vh;
+	margin: 0;
+	background-color: $black;
+	color: $white;
+}
+
+p {
+	line-height: 1.5;
+}
+
+a {
+	color: $color-theme-1;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+h1 {
+	font-size: 2rem;
+	text-align: center;
+}
+
+h2 {
+	font-size: 1rem;
+}
+
+pre {
+	font-size: 16px;
+	font-family: $font-mono;
+	background-color: rgba(255, 255, 255, 0.45);
+	border-radius: 3px;
+	box-shadow: 2px 2px 6px rgb(255 255 255 / 25%);
+	padding: 0.5em;
+	overflow-x: auto;
+	color: $color-text;
+}
+
+.text-column {
+	display: flex;
+	max-width: 48rem;
+	flex: 0.6;
+	flex-direction: column;
+	justify-content: center;
+	margin: 0 auto;
+}
+
+input,
+button {
+	font-size: inherit;
+	font-family: inherit;
+}
+
+button:focus:not(:focus-visible) {
+	outline: none;
+}
+
+@media (min-width: 720px) {
+	h1 {
+		font-size: 2.4rem;
+	}
+}
+
+.visually-hidden {
+	border: 0;
+	clip: rect(0 0 0 0);
+	height: auto;
+	margin: 0;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+	white-space: nowrap;
+}
+
+.application-name {
+	font-family: "MuseoModerno", cursive;
+}
+
+.page-filters {
+	display: flex;
+	margin-top: 10px;
+}
+
+.page-heading-courses {
+	align-items: flex-end;
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 20px;
+	.page-heading-left {
+		align-items: flex-start;
+		display: flex;
+		flex-direction: column;
+	}
+}
+
+.page-filter {
+	font-size: 18px;
+	margin: 0 10px;
+	&:first-child {
+		margin-left: 0;
+	}
+
+	input {
+		color: $light-green;
+	}
+
+	&.active input {
+		color: $green;
+		font-weight: 700;
+	}
+}
+
+.page-heading {
+	display: flex;
+	justify-content: space-between;
+	margin: 15px 0;
+	padding: 0;
+	.page-name {
+		font-size: 32px;
+		font-weight: 700;
+	}
+
+	.page-actions {
+		display: flex;
+	}
+}
+
+.btn-container {
+	border-radius: 9px;
+	color: $white;
+	cursor: pointer;
+	font-weight: 700;
+	margin: 0 10px;
+	padding: 11px 32px;
+	a,
+	input,
+	button {
+		color: $white;
+		font-size: 15px;
+		font-weight: 700;
+		&:hover {
+			color: $white;
+			text-decoration: none;
+		}
+	}
+
+	&.green-fill {
+		background: $green;
+	}
+
+	&.green {
+		border: 1px solid $green;
+	}
+
+	&.violet-fill {
+		background: $violet;
+	}
+
+	&.violet {
+		border: 1px solid $violet;
+	}
+
+	&.red-fill {
+		background: $red;
+	}
+
+	&.red {
+		border: 1px solid $red;
+	}
+}
+
+.search-container {
+	max-width: 400px;
+	width: 100%;
+	input {
+		background: rgba(102, 102, 105, 0.16);
+		background-image: url(../lib/images/search.svg);
+		background-size: 20px 18px;
+		background-position: 15px 15px;
+		background-repeat: no-repeat;
+		border: 1px solid #F5F5F738;
+		border-radius: 9px;
+
+		color: $white;
+		padding: 15px 15px 15px 50px;
+		width: 100%;
+		&::-webkit-search-cancel-button {
+			filter: saturate(0);
+		}
+	}
+}
+
+.table-headings {
+	background: rgba(102, 102, 105, 0.16);
+	border: 1px solid rgba(245, 245, 247, 0.22);
+	display: flex;
+	padding: 11px 51px;
+	width: 100%;
+
+	div {
+		width: 20%;
+	}
+}
+
+.assignments-list {
+	a {
+		@include green-link-btn;
+	}
+
+	h2 {
+		font-size: 26px;
+		font-weight: 500;
+		margin: 10px 0;
+	}
+
+	.assignment {
+		margin-bottom: 30px;
+	}
+
+	hr {
+		height: 1px;
+        background-color: $gray;
+        border: none;
+	}
+}
+
+.students-list {
+	display: flex;
+	flex-direction: column;
+}
+
+.student-assignment {
+	@include gray-card;
+	margin-top: 10px;
+	padding: 11px 51px;
+	width: 100%;
+	div {
+		width: 20%;
+	}
+
+	input {
+		color: $white;
+		font-weight: 600;
+		text-decoration: underline;
+	}
+
+	.student-name div {
+		width: 100%;
+	}
+
+	.student-environment {
+		margin-left: auto;
+		width: auto;
+	}
+}
+
+.student-dashboard {
+	.assignments-list .assignment {
+		margin-bottom: 0;
+	}
+}

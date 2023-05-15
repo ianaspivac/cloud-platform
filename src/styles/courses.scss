@@ -1,0 +1,127 @@
+@import "./styles.scss";
+
+.card__rating-image {
+  background-image: url('$lib/images/star-rating.svg');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center;
+  height: 20px;
+  width: 20px;
+}
+
+.card__image {
+  height: 172px;
+  width: 100%;
+
+  img {
+    border-radius: 6px;
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+  }
+}
+
+.course {
+  border: 1px solid;
+  border-image-source: $color-border-card-course;
+  background: $color-card-course;
+  backdrop-filter: $blur;
+  border-radius: 6px;
+  box-shadow: $shadow-card-course;
+  display: flex;
+  flex-direction: column;
+  height: 360px;
+
+  max-width: 310px;
+  padding: 15px;
+  width: 100%;
+}
+
+.card__title__h2 {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.card__title__author {
+  color: $gray;
+}
+
+.card__rating {
+  display: flex;
+  justify-content: flex-end;
+  &-image {
+    margin-right: 5px;
+  }
+}
+
+.card__date,
+.card__rating {
+  text-align: right;
+}
+
+.card__date {
+  color: $light-green;
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+.card__title {
+  margin-top: 12px;
+}
+
+.card__description {
+  margin-top: auto;
+  &.enrolled {
+    background-color: $green;
+    border-radius: 6px;
+    font-size: 14px;
+    margin-left: auto;
+    padding: 5px 10px;
+    width: fit-content;
+  }
+}
+
+.card__btn.btn-container {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  margin-top: 10px;
+  padding: 15px 32px;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.course-card-dummy {
+  &.created {
+    background-image: url(../lib/images/cross-violet.svg);
+    background-image: url(../lib/images/cross-violet.svg), $color-card-course;
+    .card__btn.btn-container {
+      background-color: $violet;
+    }
+  }
+
+  .card__btn.btn-container {
+    margin-top: auto;
+  }
+
+  &.enrolled {
+    background-image: url(../lib/images/cross-green.svg);
+    background-image: url(../lib/images/cross-green.svg), linear-gradient(123.3deg, rgba(17, 53, 36, 0.233) 19.42%, rgba(19, 69, 80, 0.15) 61.81%, rgba(102, 33, 190, 0.04) 100%);
+    .card__btn.btn-container {
+      background-color: $green;
+    }
+  }
+
+  &.created,
+  &.enrolled {
+    background-repeat: no-repeat;
+    background-position: 50% 30%;
+  }
+}
+
+.list-courses {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
