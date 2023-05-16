@@ -3,7 +3,7 @@
     import RedirectLink from "../../common/RedirectLink.svelte"
     import store from '$lib/stores/store'
     import { goto } from "$app/navigation"
-    const HOST = "https://7479-188-138-181-144.ngrok-free.app"
+    const HOST = "https://3f86-188-138-181-144.ngrok-free.app"
 
     let fields = [
         {fullName: "Email", name: "email", inputType: "email", value: "", error: ""},

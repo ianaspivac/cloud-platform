@@ -10,9 +10,25 @@
     border-radius: 0.5rem;
     color: #b8b8b8;
     box-shadow: 1px 1px #ccc;
+    margin: 0;
+    max-height: 80vh;
     min-height: 25rem;
     min-width: 35em;
     overflow: hidden;
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: rgba(23, 21, 26, 0.76);
+        border-radius: 5px;
+    }
+      
+    
+    &::-webkit-scrollbar-track {
+        background: #3b393f44;
+    }
 
     input {
         color: $white;

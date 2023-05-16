@@ -3,6 +3,9 @@
     import '../../styles/tables.scss'
     import EnvironmentCard from "./EnvironmentCard.svelte"
     import PageHeading from '../../common/PageHeading.svelte'
+	import axios from 'axios';
+    import token from "$lib/stores/store"
+    const HOST = "https://3f86-188-138-181-144.ngrok-free.app"
 
     let environments = [
         {name: "Assignment 1", env_identifier: "Ubuntu 20.04", type: "docker"},
@@ -14,6 +17,22 @@
         {name: "Back", method: ()=> history.back(), class: "violet"},
         {name: "+ Create", link: "/environments/new", class: "green-fill"}
     ]
+
+    async function getEnvs() {
+        const response = await axios.get(`${HOST}/v1/env`,
+            {
+                headers: {
+                Authorization: `Bearer ${$token}`
+            }
+		}).then(function (response) {
+            console.log(response.data);              
+        })
+ 
+    }
+
+    getEnvs()
+
+
 </script>
 
 <div class="environments-page">

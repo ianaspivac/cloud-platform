@@ -1,5 +1,6 @@
 <script>
-    const HOST = "https://7479-188-138-181-144.ngrok-free.app"
+    import axios from "axios"
+    const HOST = "https://3f86-188-138-181-144.ngrok-free.app"
     import token from '$lib/stores/store'
 
     async function create(e) {
@@ -11,19 +12,21 @@
         //     data[key] = value
 		// }
 
+        // let data = {
+        //     type: "docker",
+        //     env_identifier: "ubuntu",
+        //     name: "bebra"
+        // }
+
         let data = {
-            type: "docker",
-            env_identifier: "ubuntu",
+            prototype_uuid: "TEST",
             name: "bebra"
         }
 
-        const response = await fetch(`${HOST}/v1/env`, {
-			method: 'POST',
-			body: JSON.stringify(data),
-            headers: {
-                Authorization: `Bearer ${$token}`,
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
+        const response = await axios.post(`${HOST}/v1/env`, 
+			data,
+            {headers: {
+                Authorization: `Bearer ${$token}`
             }
 		})
 

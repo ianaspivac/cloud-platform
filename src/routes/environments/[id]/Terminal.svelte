@@ -1,17 +1,35 @@
 <script>
 	import { onMount } from 'svelte'
     import '../../../styles/terminal.scss'
+    const HOST = "3f86-188-138-181-144.ngrok-free.app"
+    import token from '$lib/stores/store'
+    import { browser } from '$app/environment'
 
     let socket
     let userInput = ""
     let promptLines = []
 
-    onMount(() => {
-        socket = new WebSocket("ws://localhost:8000/chat")
+    let uuid ="7e885389-36cf-4e81-970a-7de55ee8ce6c"
+
+    // export function load({ cookies }) {
+    //     // cookies.set('X-Authorization', $token, { path: '/' })
+    // }
+
+    // onMount(() => {
+    if (browser) {
+        // document.cookie = `X-Authorization=${$token}`
+        
+        socket = new WebSocket(`wss://${HOST}/v1/terminal?environment_uuid=${uuid}`)
         socket.addEventListener("open", ()=> {
             console.log("Opened")
         })
-    })
+
+        socket.onmessage = (event) => {
+            console.log(event.data);
+            promptLines.push(event.data)
+            promptLines = [...promptLines]
+        }
+    }
 
     function sendCommand() {
         promptLines.push(userInput)
@@ -22,8 +40,13 @@
 
     function sendRequest(command) {
         console.log(command);//Send to server
-        promptLines.push("Response example")
+        socket.send(command)
+        // promptLines.push("Response example")
     }
+
+
+
+    
 </script>
 
 
