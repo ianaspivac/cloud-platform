@@ -4,8 +4,8 @@
     import EnvironmentCard from "./EnvironmentCard.svelte"
     import PageHeading from '../../common/PageHeading.svelte'
 	import axios from 'axios';
-    import token from "$lib/stores/store"
-    const HOST = "https://3f86-188-138-181-144.ngrok-free.app"
+    import token from "$lib/stores/token"
+    import host from "$lib/stores/host"
 
     let environments = [
         {name: "Assignment 1", env_identifier: "Ubuntu 20.04", type: "docker"},
@@ -19,15 +19,14 @@
     ]
 
     async function getEnvs() {
-        const response = await axios.get(`${HOST}/v1/env`,
+        const response = await axios.get(`${$host}/v1/env`,
             {
                 headers: {
-                Authorization: `Bearer ${$token}`
+                Authorization: `Bearer ${$host}`
             }
 		}).then(function (response) {
             console.log(response.data);              
         })
- 
     }
 
     getEnvs()

@@ -6,9 +6,9 @@
 
     let fullDescription = false;
 
-    function formatDate(date) {
-        return new Date(date).toLocaleDateString('en-us', { year:"numeric", month:"short", day:"numeric"});
-    }
+    // function formatDate(date) {
+    //     return new Date(date).toLocaleDateString('en-us', { year:"numeric", month:"short", day:"numeric"});
+    // }
 
     function imagePlaceholder(img) {
         return img || placeholder
@@ -27,15 +27,15 @@
             {course.title}
         </h2>
 
-        <p class="card__title__author">
-            {course.author}
-        </p>
+        <!-- <p class="card__title__author">
+            {course.author_uuid}
+        </p> -->
     </div>
 
     {#if fullDescription}
         <div class="card__full-description">
             <p>
-                {course.fullDescription}
+                {course.short_description}
             </p>
         </div>
         {/if}
@@ -45,7 +45,7 @@
             Enrolled
         {/if}
     </div>
-    <a href="/course/{course.id}" class="card__btn btn-container {course.btnClass}">
+    <a href="/course/{course.uuid}" class="card__btn btn-container {course.btnClass}">
         {course.btnText}
     </a>
 </div>

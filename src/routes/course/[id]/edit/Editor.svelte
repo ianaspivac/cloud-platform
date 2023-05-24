@@ -1,5 +1,5 @@
 <script>
-    import "../../styles/course.scss"
+    import "../../../../styles/course.scss"
     import { goto } from "$app/navigation"
     import attachment from '$lib/images/attachment.svg'
     import code from '$lib/images/code.svg'
@@ -7,9 +7,11 @@
     import list from '$lib/images/list.svg'
     import quote from '$lib/images/quote.svg'
     import SvelteMarkdown from 'svelte-markdown'
+    import host from "$lib/stores/host"
+    import token from '$lib/stores/token'
+	import axios from "axios";
     import { page } from '$app/stores'
 
-    export let pages;
     export let course;
 
     let inputRef
@@ -17,13 +19,20 @@
     let contentTouched = false
     let previewMode = false
 
+    let pages = [
+        {
+            id: 0,
+            title: "New chapter",
+            isAssignment: false,
+            text: ""
+        }
+    ]
 
-    $: currentActive =  $page.url.searchParams.get("page_id") || pages[0].id
+
+    let currentActive = 0
     $: currentPage = pages.find(page => page.id == currentActive)
 
-    $: currentPageData = currentPage.type == 1 ? currentPage.data : currentPage.data.assignment
-    $: textContent = currentPage.type == 1 ? currentPageData.text : currentPageData.description
-
+    let text = ""
     let symbolMapping = {
         bold: "****",
         italic: "**",
@@ -67,10 +76,10 @@
         // and send delete request
     }
 
-    function newChapter() {
-        // let newChapterIndex = chaptersObj.length
-        // chaptersObj = [...chaptersObj, {name: "New chapter", index: newChapterIndex, active: true}]
-        // selectChapter(newChapterIndex)
+    function newPage() {
+        let newPageId = pages.length
+        pages = [...pages, {title: "New chapter", id: newPageId, isAssignment: false, text: ""}]
+        currentActive = newPageId
     }
 
     function attachmentOpen() {
@@ -78,30 +87,58 @@
     }
 
     function clearInput() {
-        editText = ""
+        text = ""
     }
 
     function addMarkdown(name) {
-        editText += symbolMapping[name]
+        text += symbolMapping[name]
     }
 
-    function save() {
-        goto(`/course/${course.id}`)
+    async function save(event) {
+        let dataContent
+
+        if (currentPage.isAssignment){
+            dataContent = {
+                lesson: {
+                    text: currentPage.text
+                }
+            }
+         } else {
+            dataContent = {
+                assignment: {
+                    description: currentPage.text
+                }
+            }
+        }
+
+        let data = {
+            title: currentPage.title,
+            type: currentPage.isAssignment ? "LESSON" : "ASSIGNMENT",
+            data: dataContent
+        }
+
+        console.log(data)
+
+        await axios.post(`${$host}/v1/course/${course.id}/page`, 
+			data,
+            {
+                headers: {
+                Authorization: `Bearer ${$token}`
+            }
+		}).then((response) => {
+            console.log(response)
+        }, (error) => {
+            console.log(error);
+        });
+     
     }
 
-    // export function deleteCourse() {
-    //     goto("/courses")
-    // }
+    export function deleteCourse() {
+        goto("/courses")
+    }
 
 </script>
 <div>
-    <!-- <h1 class="editor-course_title">
-        {course.name}
-    </h1> -->
-    <!-- <input class="editor-course_title" bind:value={course.name}/>
-    <div class="editor-course_description{previewMode ? " preview" : ""}">
-        <input bind:value={course.fullDescription} on:change={()=> courseTouched = true}/>
-    </div> -->
     <div class="editor-box">
         <ul class="chapters-list">
             {#each pages as page}
@@ -110,7 +147,7 @@
             </li>
             {/each}
             <li>
-                <button on:click={newChapter}>+ New chapter</button>       
+                <button on:click={newPage}>+ New chapter</button>       
             </li>
         </ul>
 
@@ -118,6 +155,21 @@
             <div class="editor__chapter">
                 <input bind:value={currentPage.title}/>
             </div>
+
+            <div>
+                <input type="checkbox" id="assignment" class="assignment_checkbox" name="assignment" bind:checked={currentPage.isAssignment}/>
+                <label for="assignment">Assignment</label>
+            </div>
+    
+            {#if currentPage.isAssignment}
+                <div>
+                    <label for="prototype">Environment prototype</label>
+                    <select name="prototype" id="prototype">
+                    <option value="docker">Docker</option>
+                    <option value="VM">Virtual machine</option>
+                    </select>
+                </div>
+            {/if}
 
             <div class="editor__toolbox">
                 <ul>
@@ -135,7 +187,7 @@
 
             <form on:submit|preventDefault={save}>
                 <div class="editor__textfield">
-                    <textarea  bind:this={inputRef} name="course-text" rows="10" cols="30" bind:value={textContent} on:change={()=> contentTouched = true}/>
+                    <textarea  bind:this={inputRef} name="course-text" rows="10" cols="30" bind:value={currentPage.text} on:change={()=> contentTouched = true}/>
                 </div>
                 <div class="editor__actions">
                     <div class="editor__save btn-container green-fill">
@@ -154,7 +206,7 @@
         <div class="course-preview {!previewMode ? "hidden" : ""}">
             <div class="page-container">
                 <h1 class="page-title">{currentPage.title}</h1>
-                <SvelteMarkdown source={textContent} />
+                <SvelteMarkdown source={currentPage.text} />
             </div>
         </div>
     </div>

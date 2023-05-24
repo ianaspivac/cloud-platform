@@ -1,10 +1,10 @@
 <script>
-	import store from "$lib/stores/store.js"
+	import token from "$lib/stores/token.js"
 	import { browser } from "$app/environment"
 	import { redirect } from "@sveltejs/kit"
 
 	if (browser) {
-		if ($store) {
+		if ($token) {
 			window.location.href = "/courses"
 		} else {
 			window.location.href = "/login"

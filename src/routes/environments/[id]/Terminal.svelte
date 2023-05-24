@@ -1,8 +1,8 @@
 <script>
 	import { onMount } from 'svelte'
     import '../../../styles/terminal.scss'
-    const HOST = "3f86-188-138-181-144.ngrok-free.app"
-    import token from '$lib/stores/store'
+    const host = "3f86-188-138-181-144.ngrok-free.app"
+    import token from '$lib/stores/token'
     import { browser } from '$app/environment'
 
     let socket
@@ -19,7 +19,7 @@
     if (browser) {
         // document.cookie = `X-Authorization=${$token}`
         
-        socket = new WebSocket(`wss://${HOST}/v1/terminal?environment_uuid=${uuid}`)
+        socket = new WebSocket(`wss://${host}/v1/terminal?environment_uuid=${uuid}`)
         socket.addEventListener("open", ()=> {
             console.log("Opened")
         })

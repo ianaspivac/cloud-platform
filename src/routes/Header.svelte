@@ -1,11 +1,11 @@
 <script>
 	import '../styles/header.scss'
 	import { browser } from "$app/environment"
-	import store from '$lib/stores/store'
+	import token from '$lib/stores/token'
 	import { goto } from '$app/navigation';
 
 	function logout() {
-		store.update(() => "")
+		token.update(() => "")
 		goto("/")
 	}
 </script>
@@ -20,7 +20,7 @@
 	
 		<nav>
 			<ul><li><a href="/courses">All courses</a></li>
-				{#if $store}
+				{#if $token}
 					<li><a href="/environments">My environments</a></li>
 					<li><a href="/enrolled-courses">Enrolled courses</a></li>
 					<li><a href="/created-courses">Created courses</a></li>

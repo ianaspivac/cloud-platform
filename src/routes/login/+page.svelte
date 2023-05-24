@@ -1,14 +1,12 @@
 <script>
     import Login from "./Login.svelte"
-    import store from "$lib/stores/store.js"
+    import token from "$lib/stores/token.js"
 	import { goto } from "$app/navigation"
     import { onMount } from "svelte"
 
-    onMount(() => {
-        if ($store) {
-            goto("/courses")
-        }
-    })
+    if ($token) {
+        goto("/courses")
+    }
 </script>
 
 <div class="login-page">

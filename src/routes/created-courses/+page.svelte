@@ -10,7 +10,7 @@
     let courseCard = {
         class: "created",
         btnText: "Create a course",
-        link: "/courses/new"
+        link: "/course/new"
     }
 
     let courses = [

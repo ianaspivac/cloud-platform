@@ -1,9 +1,9 @@
 <script>
     import Form from "../../common/Form.svelte"
     import RedirectLink from "../../common/RedirectLink.svelte"
-    import store from '$lib/stores/store'
+    import token from '$lib/stores/token'
     import { goto } from "$app/navigation"
-    const HOST = "https://3f86-188-138-181-144.ngrok-free.app"
+    import host from "$lib/stores/host"
 
     let fields = [
         {fullName: "Email", name: "email", inputType: "email", value: "", error: ""},
@@ -18,14 +18,14 @@
             data[key] = value
 		}
 
-        const response = await fetch(`${HOST}/v1/user/login`, {
+        const response = await fetch(`${$host}/v1/user/login`, {
 			method: 'POST',
 			body: JSON.stringify(data)
 		})
         const token = await response.json()
 		
         if (response.ok) {
-            store.update(() => token.token)
+            token.update(() => token.token)
             // localStorage.setItem("token", JSON.stringify(token))
             goto("/courses")
         }

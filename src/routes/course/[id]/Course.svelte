@@ -1,73 +1,21 @@
 <script>
     import '../../../styles/course.scss'
     import { goto } from "$app/navigation"
+    import { page } from '$app/stores'
+    import SvelteMarkdown from 'svelte-markdown'
+    import token from '$lib/stores/token'
 
-    let chapters = [
-        {
-            id: 1,
-            name: "UgaBooga"
-        },
-        {
-            id: 2,
-            name: "Chapter 2"
-        },
+    export let course
+    export let pages
+    export let currentPage
 
-        {
-            id: 2,
-            name: "Chapter 2"
-        },
+    $: currentActive = $page.url.searchParams.get("page_id") || pages[0].id
+    // $: currentPage = page
+    // $: currentPage = pages.find(page => page.id == currentActive)
 
-        {
-            id: 2,
-            name: "Chapter 2"
-        },
+    $: currentPageData = currentPage.type == "LESSON" ? currentPage.data.lesson : currentPage.data.assignment
+    $: textContent = currentPage.type == "LESSON" ? currentPageData.text : currentPageData.description
 
-        {
-            id: 2,
-            name: "Chapter 2"
-        },
-
-        {
-            id: 2,
-            name: "Chapter 2 dsdasdsadasd sdsadasdsda asdsdasdsadasdad"
-        },
-
-        {
-            id: 2,
-            name: "Chapter 2 dsdasdsadasd sdsadasdsda asdsdasdsadasdad"
-        },
-
-        {
-            id: 2,
-            name: "Chapter 2 dsdasdsadasd sdsadasdsda asdsdasdsadasdad"
-        },
-
-        {
-            id: 2,
-            name: "Chapter 2 dsdasdsadasd sdsadasdsda asdsdasdsadasdad"
-        },
-
-        {
-            id: 2,
-            name: "Chapter 2 dsdasdsadasd sdsadasdsda asdsdasdsadasdad"
-        },
-
-        {
-            id: 2,
-            name: "Chapter 2 dsdasdsadasd sdsadasdsda asdsdasdsadasdad"
-        },
-
-        {
-            id: 2,
-            name: "Chapter 2 dsdasdsadasd sdsadasdsda asdsdasdsadasdad"
-        },
-
-        {
-            id: 2,
-            name: "Chapter 2 dsdasdsadasd sdsadasdsda asdsdasdsadasdad"
-        },
-
-    ]
 
     let minimize = false
 
@@ -81,39 +29,29 @@
     <div class="chapters-list {minimize ? "minimize" : ""}">
         <div class="chapters-list-title"><div>Course contents</div> <button on:click={toggleNavbar}>Hide</button></div>
         <ul>
-            {#each chapters as chapter, index}
-                <li class={index == 0 ? "active" : ""}><a href="?chapter={chapter.id}">{chapter.name}</a></li>
+            {#each pages as page}
+                <li class="{page.id == currentActive ? "active" : ""}{page.type == 2 ? " task" : ""}"><a href="?page_id={page.id}" on:click={()=> currentActive = page.id}>{page.title}</a></li>
             {/each}
         </ul>
         <div class="show-navbar"><button on:click={toggleNavbar}>Show</button></div>
     </div>
-
-    <div class="course-content">
-
-        <h1>This is heading 1</h1>
-        <h2>This is heading 2</h2>
-        <h3>This is heading 3</h3>
-        <p>Lorem <b>ipsum dolor</b> <em><b>sit amet</b></em>, consectetur adipiscing elit. Praesent enim erat, scelerisque in venenatis sed, cursus vitae sapien. Duis tristique mi eu turpis sagittis imperdiet in eget odio. Praesent porttitor gravida congue. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sollicitudin enim vel nunc bibendum suscipit. Integer fermentum nisl nisi, ut ultricies erat pellentesque sit amet. Maecenas iaculis pellentesque purus. Praesent vitae maximus nisi, et semper dui. Nunc dignissim nibh eu rhoncus lobortis. Nam egestas, augue eu convallis molestie, libero nulla mollis metus, luctus imperdiet diam risus non leo. Etiam eu porttitor nisl. Pellentesque nec orci condimentum, congue diam eget, fringilla velit. Nullam pharetra congue massa nec mollis. Quisque ut lacus in diam tempus pretium id a nibh. Aliquam ut augue at augue aliquet eleifend dignissim id massa. Suspendisse ac lorem non diam malesuada efficitur et porttitor leo.</p>
-        <p>Lorem <em>ipsum dolor sit amet</em>, consectetur adipiscing elit. Praesent enim erat, scelerisque in venenatis sed, cursus vitae sapien. Duis tristique mi eu turpis sagittis imperdiet in eget odio. Praesent porttitor gravida congue. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sollicitudin enim vel nunc bibendum suscipit. Integer fermentum nisl nisi, ut ultricies erat pellentesque sit amet. Maecenas iaculis pellentesque purus. Praesent vitae maximus nisi, et semper dui. Nunc dignissim nibh eu rhoncus lobortis. Nam egestas, augue eu convallis molestie, libero nulla mollis metus, luctus imperdiet diam risus non leo. Etiam eu porttitor nisl. Pellentesque nec orci condimentum, congue diam eget, fringilla velit. Nullam pharetra congue massa nec mollis. Quisque ut lacus in diam tempus pretium id a nibh. Aliquam ut augue at augue aliquet eleifend dignissim id massa. Suspendisse ac lorem non diam malesuada efficitur et porttitor leo.</p>
-        <ul>
-            <li>List item 1 <code>piece of code</code></li>
-            <li>List item 2 <a href="#">this is a link</a></li>
-            <li>List item 1</li>
-        </ul>
-        <p><s>This text is cutten</s></p>
-        <pre class="codeblock">
-var s = 2;
-printf(s);
-        </pre>
-        <blockquote>
-            This is a beautiful quote.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent enim erat, scelerisque in venenatis sed, cursus vitae sapien. Duis tristique mi eu turpis sagittis imperdiet in eget odio
-        </blockquote>
-
-        <div class="assignment">
-            Assignment 1
-            <a href="#">Go to assignment</a>
+    <div class="page-container">
+        <h1 class="page-title">{currentPage.title}</h1>
+        {#if currentPage.type == 2}
+            <div class="page-container_grade">
+                Grade: {currentPageData.grade || "not graded"}
+            </div>
+        {/if}
+        <!-- <input type="text" class="page-title" value={currentPage.title}/> --> 
+        <div class="course-content">
+            <SvelteMarkdown source={textContent} />
         </div>
-
+        {#if currentPage.type == 2}
+            <div class="btn-container {currentPageData.environment_uuid ? "green" : "green-fill"}">
+                <a href="#">{currentPageData.environment_uuid ? "Open environment" : "Create environment"}</a>
+            </div>
+                
+        {/if}
     </div>
 
 </div>
