@@ -1,7 +1,7 @@
 <script>
     import axios from "axios"
-    const HOST = "https://3f86-188-138-181-144.ngrok-free.app"
-    import token from '$lib/stores/store'
+    import host from "$lib/stores/host"
+    import token from '$lib/stores/token'
 
     async function create(e) {
         const formData = new FormData(e.target)
@@ -23,9 +23,10 @@
             name: "bebra"
         }
 
-        const response = await axios.post(`${HOST}/v1/env`, 
+        const response = await axios.post(`${$host}/v1/env`, 
 			data,
-            {headers: {
+            {
+                headers: {
                 Authorization: `Bearer ${$token}`
             }
 		})

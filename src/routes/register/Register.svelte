@@ -2,8 +2,8 @@
     import Form from "../../common/Form.svelte";
     import RedirectLink from "../../common/RedirectLink.svelte";
     import { goto } from "$app/navigation"
-    // import { HOST } from '$env/static/private';
-    const HOST = "https://3f86-188-138-181-144.ngrok-free.app"
+    import { HOST } from '$env/static/private'
+    import host from "$lib/stores/host"
 
     let fields = [
         {fullName: "Username", name:"username", inputType: "text", value: "", error: ""},
@@ -24,7 +24,7 @@
             }
 		}
 
-		const res = await fetch(`${HOST}/v1/user/register`, {
+		const res = await fetch(`${$host}/v1/user/register`, {
 			method: 'POST',
 			body: JSON.stringify(data)
 		})

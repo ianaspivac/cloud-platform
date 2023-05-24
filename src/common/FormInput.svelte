@@ -38,7 +38,7 @@
             return 3
         }
 
-        return 255
+        return 3
     }
 
     

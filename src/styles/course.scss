@@ -6,12 +6,46 @@ $border-purple-green: linear-gradient(135.88deg, #141439 0%, rgba(41, 24, 63, 0.
 
 $clear: transparent;
 
-.edit-page {
-
-}
+.edit-page {}
 
 .hidden {
     display: none;
+}
+
+.editor-course_title {
+    color: $white;
+    font-size: 36px;
+    margin-bottom: 10px;
+    text-align: left;
+    text-decoration: underline;
+}
+
+.editor-course_description ,
+.editor-course_title {
+    input {
+        width: 100%;
+    }
+}
+
+.editor-course_description {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid #9B9A9A;
+    box-shadow: inset 0px 0px 6px 1px rgba(134, 132, 132, 0.25);
+    border-radius: 6px;
+    color: $gray;
+    margin-bottom: 10px;
+    padding: 10px 15px;
+
+    input {
+        color: $gray;
+    }
+
+    &.preview {
+        background: none;
+        border: none;
+        box-shadow: none;
+        padding: 0;
+    }
 }
 
 .editor-box {
@@ -24,7 +58,8 @@ $clear: transparent;
 
 .editor__chapter {
     padding-bottom: 15px;
-    padding-top:  15px;
+    padding-top: 0;
+
     input {
         border-bottom: 1px solid $gray;
         font-size: 20px;
@@ -35,11 +70,41 @@ $clear: transparent;
 .chapters-list-title,
 .chapters-list li {
     padding: 10px 15px;
-    padding-bottom: 20px;
 }
 
 .show-navbar {
     display: none;
+}
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .page-title {
+        color: $light-green;
+        font-size: 32px;
+        margin-bottom: 10px;
+        text-align: left;
+    }
+
+    .btn-container {
+        margin-left: 0;
+        max-width: 200px;
+        margin-top: 20px;
+    }
+
+    .page-container_grade {
+        background: $table-header-color;
+        border: 1px solid;
+        border-color: $table-header-border-color;
+        border-radius: 9px;
+        color: $white;
+        font-weight: 600;
+        margin-bottom: 20px;
+        padding: 10px 15px;
+        width: 200px;
+    }
 }
 
 .chapters-list {
@@ -54,8 +119,10 @@ $clear: transparent;
     height: max-content;
     margin-right: 15px;
     min-width: 20%;
+    overflow-x: hidden;
     padding: 10px;
     width: 20%;
+
     &::-webkit-scrollbar {
         width: 10px;
     }
@@ -64,14 +131,15 @@ $clear: transparent;
         background-color: rgba(93, 78, 107, 0.253);
         border-radius: 5px;
     }
-      
-    
+
+
     &::-webkit-scrollbar-track {
         background: #18013b44;
     }
 
     li {
         cursor: pointer;
+
         &.active,
         &:hover {
             background-color: #db9dff0c;
@@ -81,11 +149,18 @@ $clear: transparent;
             box-shadow: 0px 4px 24px -1px rgba(149, 104, 255, 0.075);
             padding: 9px 13px;
         }
+
+        &.task {
+            background: $clear url("$lib/images/task.svg") no-repeat 15px center;
+            background-size: 16px;
+            padding-left: 40px;
+        }
     }
 
     a,
     button {
         color: $white;
+
         &:hover {
             text-decoration: none;
         }
@@ -98,10 +173,10 @@ $clear: transparent;
     &.minimize {
         align-items: center;
         display: flex;
-        height: 70vh;
-        margin-right: 0;
+        height: 73vh;
         min-width: 34px;
         width: 34px;
+
         .chapters-list-title,
         ul {
             display: none;
@@ -109,6 +184,7 @@ $clear: transparent;
 
         .show-navbar {
             display: block;
+
             button {
                 background: $clear url("$lib/images/arrow-forward-line.svg") no-repeat center center;
                 background-size: 11px;
@@ -124,6 +200,7 @@ $clear: transparent;
     display: flex;
     font-size: 17px;
     font-weight: 600;
+
     button {
         background: $clear url("$lib/images/arrow-back-line.svg") no-repeat center center;
         background-size: 11px;
@@ -135,9 +212,12 @@ $clear: transparent;
 
 .course-container {
     display: flex;
+
     .course-content {
+        border: 1px solid $table-header-border-color;
+        border-radius: 6px;
         margin-left: auto;
-        padding: 0 20px;
+        padding: 10px 15px;
         width: 100%;
 
         &::-webkit-scrollbar {
@@ -148,8 +228,8 @@ $clear: transparent;
             background-color: rgba(0, 0, 0, 0.5);
             border-radius: 5px;
         }
-          
-        
+
+
         &::-webkit-scrollbar-track {
             background: #8a898913;
             border-radius: 5px;
@@ -162,6 +242,11 @@ $clear: transparent;
         overflow-y: auto;
     }
 
+    .course-content {
+        max-height: 60vh;
+        min-height: 60vh;
+    }
+
     .chapters-list.minimize {
         overflow: hidden;
     }
@@ -172,17 +257,17 @@ $clear: transparent;
     width: 80%;
 }
 
-.course-content {
-
-}
+.course-content {}
 
 .course-preview,
 .course-content {
     font-size: 17px;
+
     b {
         color: #5db48a;
         font-weight: 700;
     }
+
     h1,
     h2,
     h3 {
@@ -190,22 +275,26 @@ $clear: transparent;
         text-align: left;
     }
 
+    h1 {
+        font-size: 30px;
+    }
+
     h2 {
-        font-size: 28px;
+        font-size: 26px;
     }
 
     h3 {
         font-size: 22px;
     }
 
-    & > * {
+    &>* {
         line-height: 1.7;
         margin-bottom: 20px;
     }
 
     ul {
-        list-style: disc; 
-        padding-left: 20px;  
+        list-style: disc;
+        padding-left: 20px;
     }
 
     code {
@@ -230,9 +319,7 @@ $clear: transparent;
         color: rgb(100, 58, 197);
     }
 
-    p {
-        
-    }
+    p {}
 
     .assignment {
         @include table-card;
@@ -268,10 +355,11 @@ $clear: transparent;
     .editor__toolbox {
         align-items: center;
         border: 1px solid #F5F5F738;
-        border-radius: 9px 9px 0 0;           
+        border-radius: 9px 9px 0 0;
         display: flex;
         padding: 9px 28px;
         padding-left: 0;
+
         ul {
             display: flex;
             margin: 0 10px;
@@ -361,4 +449,3 @@ $clear: transparent;
         height: 100%;
     }
 }
-
