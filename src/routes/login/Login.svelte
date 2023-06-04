@@ -40,7 +40,7 @@
             message = true;
 			messageData.isError = false
 			messageData.text = "User created succesfully!"
-            setInterval(() => {
+            setTimeout(() => {
 				message = false;
                 goto("/courses")
 			}, 1500);

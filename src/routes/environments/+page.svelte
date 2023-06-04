@@ -27,8 +27,7 @@
                 Authorization: `Bearer ${$token}`
             }
 		}).then(function (response) {
-            environments = response.data 
-            console.log(response.data);              
+            environments = response.data             
         }).catch(function (error) {
             environments = []             
         })

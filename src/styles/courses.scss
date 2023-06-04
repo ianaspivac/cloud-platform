@@ -35,6 +35,18 @@
   max-width: 310px;
   padding: 15px;
   width: 100%;
+
+  @media (max-width: 1350px) {
+    max-width: 32%;
+  }
+
+  @media (max-width: 740px) {
+    max-width: 48%;
+  }
+
+  @media (max-width: 515px) {
+    max-width: 100%;
+  }
 }
 
 .card__title__h2 {

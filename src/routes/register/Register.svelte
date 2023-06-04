@@ -13,7 +13,7 @@
         text: ""
     }
     let fields = [
-        // {fullName: "Username", name:"username", inputType: "text", value: "", error: ""},
+        {fullName: "Username", name:"username", inputType: "text", value: "", error: ""},
         {fullName: "Email", name: "email", inputType: "email", value: "", error: ""},
         {fullName: "Password", name: "password", inputType: "password", value: "", error: ""},
         {fullName: "Confirm Password", name: "confirm_password", inputType: "password", value: "", error: ""}
@@ -46,7 +46,7 @@
 			messageData.isError = false
 			messageData.text = "User created succesfully!"
 
-			setInterval(() => {
+			setTimeout(() => {
 				message = false;
                 goto("/login")
 			}, 1500);
@@ -55,7 +55,7 @@
 			messageData.isError = true
 			messageData.text = "User already exists"
 
-			setInterval(() => {
+			setTimeout(() => {
 				message = false;
 			}, 1500);
         }

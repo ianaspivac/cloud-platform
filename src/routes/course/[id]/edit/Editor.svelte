@@ -19,6 +19,7 @@
 	export let course;
 
 	let inputRef;
+	let prototype
 	let previewMode = false;
 	let items = [];
 	let message = false; 
@@ -147,14 +148,15 @@
 			} else {
 				dataContent = {
 					assignment: {
-						description: page.text
+						description: page.text,
+						prototype_uuid: prototype.value
 					}
 				};
 			}
 
 			let data = {
 				title: page.title,
-				type: page.isAssignment ? 'LESSON' : 'ASSIGNMENT',
+				type: page.isAssignment ? 'ASSIGNMENT' : 'LESSON',
 				data: dataContent
 			};
 
@@ -169,7 +171,7 @@
 						if (page.id == pages.length) {
                             loading = false
 							message = true;
-							setInterval(() => {
+							setTimeout(() => {
 								message = false;
 								goto(`/course/${course.id}`);
 							}, 1500);
@@ -230,7 +232,9 @@
 						--input-color="#151516"
 						--placeholder-color="#737373"
 						--item-hover-color="#151516"
+                        --selected-item-color="#151516"
 						placeholder="Select prototype"
+						bind:value={prototype}
 						{items}
 					/>
 				</div>
