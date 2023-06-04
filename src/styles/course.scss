@@ -54,6 +54,42 @@ $clear: transparent;
     justify-content: space-between;
     height: 70vh;
     width: 100%;
+    @media (max-width: 1300px) {
+        .editor {
+            width: 70%;
+        }
+
+        .chapters-list {
+            width: 30%;
+        }
+    }
+
+    @media (max-width: 850px) {
+        flex-direction: column;
+        .editor,
+        .chapters-list {
+            width: 100%;
+        }
+
+        .chapters-list {
+            max-height: 150px;
+            min-height: 100px;
+            margin-bottom: 10px;
+        }
+
+        .editor__actions {
+            flex-direction: column;
+        }
+
+        .btn-container {
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        .editor__clear {
+            width: calc(100% - 20px);
+        }
+    }
 }
 
 .editor__assignment {
@@ -82,7 +118,6 @@ $clear: transparent;
 
 .svelte-select {
     font-weight: 800;
-    max-width: 200px;
 } 
 
 .chapters-list-title,
@@ -269,6 +304,52 @@ $clear: transparent;
     .chapters-list.minimize {
         overflow: hidden;
     }
+
+    @media (max-width: 1300px) {
+        .editor {
+            width: 70%;
+        }
+
+        .chapters-list {
+            width: 30%;
+            &.minimize {
+                width: 34px;
+            }
+        }
+    }
+
+    @media (max-width: 850px) {
+        flex-direction: column;
+
+        .show-navbar,
+        .chapters-list-title button {
+            display: none !important;
+        }
+
+        .editor,
+        .chapters-list {
+            width: 100%;
+        }
+
+        .chapters-list {
+            max-height: 150px;
+            min-height: 100px;
+            margin-bottom: 10px;
+        }
+        
+        .chapters-list.minimize {
+            align-items: flex-start;
+            flex-direction: column;
+            height: auto;
+            max-height: 150px;
+            min-height: 0;
+            width: 100%;
+        }
+
+        .chapters-list.minimize .chapters-list-title, .chapters-list.minimize ul {
+            display: block;
+        }
+    }
 }
 
 .course-preview {
@@ -356,6 +437,10 @@ $clear: transparent;
 .editor {
     height: 100%;
     width: 80%;
+
+    .svelte-select {
+        max-width: 200px;
+    }
 
     .delete-chapter {
         background: $clear url("$lib/images/cross.svg") no-repeat center center;

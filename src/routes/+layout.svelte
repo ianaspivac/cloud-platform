@@ -11,7 +11,7 @@
 	</main>
 
 	<footer>
-		<p>ScholarLabs</p>
+		<!-- <p>ScholarLabs</p> -->
 	</footer>
 </div>
 

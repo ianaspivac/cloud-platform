@@ -28,7 +28,6 @@
 				});
 
 				socket.onmessage = (event) => {
-					console.log(event.data);
 					promptLines.push(event.data);
 					promptLines = [...promptLines];
 					scrollToBottom(terminal);

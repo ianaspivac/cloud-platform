@@ -57,7 +57,7 @@
 					messageData.isError = false;
 					messageData.text = 'Course initialized!';
 					message = true;
-					setInterval(() => {
+					setTimeout(() => {
 						message = false;
 						goto(`/course/${courseId}/edit`);
 					}, 1500);
@@ -69,7 +69,7 @@
 					messageData.text = "Couldn't create";
 					message = true;
 
-					setInterval(() => {
+					setTimeout(() => {
 						message = false;
 					}, 1500);
 				}

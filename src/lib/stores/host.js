@@ -2,7 +2,7 @@ import { writable } from "svelte/store"
 // import basehost from '$lib/stores/basehost.js';
 
 /* Default store value */
-let base = "c8be-188-138-181-144.ngrok-free.app"
+let base = "7d25-188-138-181-144.ngrok-free.app"
 let hostDefault = `https://${base}`
 
 let inactive = ""

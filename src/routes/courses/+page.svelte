@@ -15,15 +15,14 @@
     onMount(async () => {
         try {
             loading = true
-            console.log(JSON.stringify($host))
             let response = await axios.get(`${$host}/v1/course`)
             let data = response.data
             if (data !== null)
             {
                 courses = data
                 courseRelation(courses)
-                loading = false
             }
+            loading = false
         } catch (e) {
             loading = false
             console.error('Error fetching data')

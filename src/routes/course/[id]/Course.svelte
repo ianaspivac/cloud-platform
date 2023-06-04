@@ -7,6 +7,7 @@
 	import Loader from '../../../common/Loader.svelte';
 	import axios from 'axios';
 	import host from '$lib/stores/host';
+	import { onMount } from 'svelte';
 
 	export let course;
 	export let pages;
@@ -32,9 +33,11 @@
 	let minimize = false;
 	let environment_uuid;
 
-	if (currentPage.type == 'ASSIGNMENT') {
-		getisAssignmentNew(currentPage.data.assignment.uuid);
-	}
+	onMount(async () => {
+		if (currentPage.type == 'ASSIGNMENT') {
+			getisAssignmentNew(currentPage.data.assignment.uuid);
+		}
+	});
 
 	function toggleNavbar() {
 		minimize = !minimize;

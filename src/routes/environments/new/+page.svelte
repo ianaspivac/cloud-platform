@@ -87,7 +87,7 @@
 				messageData.text = 'Environment created!';
 				message = true;
 
-				setInterval(() => {
+				setTimeout(() => {
 					message = false;
 					goto('/environments');
 				}, 1500);
@@ -99,13 +99,13 @@
 				messageData.text = "Couldn't create";
 				message = true;
 
-				setInterval(() => {
+				setTimeout(() => {
 					message = false;
 				}, 1500);
 			});
 	}
 
-	// let items = [
+	// items = [
 	//     { value: "TEST", label: "TEST" },
 	//     { value: "MSSQL", label: "MSSQL" }
 	// ]
@@ -120,12 +120,13 @@
 	<Message isError={messageData.isError} text={messageData.text} />
 {/if}
 <form class="common-form" on:submit|preventDefault={create}>
-	<input type="text" name="name" placeholder="Environment name" bind:value={name} on:change={()=> console.log(name)} required/>
+	<input type="text" name="name" placeholder="Environment name" bind:value={name} required/>
 	<Select
 		--item-color="#151516"
 		--input-color="#151516"
 		--placeholder-color="#737373"
 		--item-hover-color="#151516"
+        --selected-item-color="#151516"
 		placeholder="Select prototype"
 		{items}
 		bind:value={prototype}
