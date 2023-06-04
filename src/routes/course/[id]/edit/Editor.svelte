@@ -1,11 +1,6 @@
 <script>
 	import '../../../../styles/course.scss';
 	import { goto } from '$app/navigation';
-	import attachment from '$lib/images/attachment.svg';
-	import code from '$lib/images/code.svg';
-	import link from '$lib/images/link.svg';
-	import list from '$lib/images/list.svg';
-	import quote from '$lib/images/quote.svg';
 	import SvelteMarkdown from 'svelte-markdown';
 	import host from '$lib/stores/host';
 	import token from '$lib/stores/token';
