@@ -5,7 +5,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
 
 $font-lato: 'Lato',
-sans-serif;
+	sans-serif;
 $green: #3B7C5D;
 $light-green: #B0C8BC;
 $bright-green: #54AF83;
@@ -18,6 +18,7 @@ $light-gray: #B1B1B2;
 $gray: #9B9A9A;
 $coral: #FB6E6E;
 $gray-dark: #737373;
+$gray-very-dark: #2c2c2c;
 $color-bg-0: rgb(202, 216, 228);
 $color-bg-1: hsl(209, 36%, 86%);
 $color-bg-2: hsl(224, 44%, 95%);
@@ -40,21 +41,22 @@ $table-row-border-color: linear-gradient(180deg, #3E3B3B 0%, rgba(62, 59, 59, 0.
 $color-border-card-course: linear-gradient(135.88deg, #141439 0%, rgba(41, 24, 63, 0.54) 41.57%, rgba(105, 78, 110, 0.03) 100%);
 $shadow-card-course: 0px 4px 24px -1px rgba(0, 0, 0, 0.25);
 $color-card-course: linear-gradient(136.41deg, #1C1C39 2.44%, rgba(42, 32, 55, 0.54) 43%, rgba(57, 43, 60, 0.03) 100%);
+$green-gradient: linear-gradient(123.3deg, rgba(6, 8, 24, 0.808) 19.42%, rgba(13, 47, 54, 0.377) 61.81%, rgba(67, 22, 126, 0.11) 100%);
 $blur: blur(2px);
 
 $font-body: Arial,
--apple-system,
-BlinkMacSystemFont,
-'Segoe UI',
-Roboto,
-Oxygen,
-Ubuntu,
-Cantarell,
-'Open Sans',
-'Helvetica Neue',
-sans-serif;
+	-apple-system,
+	BlinkMacSystemFont,
+	'Segoe UI',
+	Roboto,
+	Oxygen,
+	Ubuntu,
+	Cantarell,
+	'Open Sans',
+	'Helvetica Neue',
+	sans-serif;
 $font-mono: 'Fira Mono',
-monospace;
+	monospace;
 
 @mixin green-link-btn() {
 	border: 1px solid $green;
@@ -73,7 +75,7 @@ monospace;
 	background: linear-gradient(90.84deg, rgba(49, 49, 49, 0.25) 0%, rgba(217, 217, 217, 0) 100.66%);
 	backdrop-filter: blur(5px);
 	border: 1px solid;
-	border-image-source: linear-gradient(180deg, #3E3B3B 0%, rgba(62, 59, 59, 0.54) 48.96%, rgba(62, 59, 59, 0.03) 99.99%);        
+	border-image-source: linear-gradient(180deg, #3E3B3B 0%, rgba(62, 59, 59, 0.54) 48.96%, rgba(62, 59, 59, 0.03) 99.99%);
 	border-radius: 9px;
 	box-shadow: 0px 4px 12px -1px rgba(0, 0, 0, 0.25);
 	display: flex;
@@ -87,6 +89,7 @@ monospace;
 
 	a {
 		@include green-link-btn;
+
 		&:hover {
 			text-decoration: none;
 		}
@@ -103,6 +106,68 @@ monospace;
 
 ul {
 	list-style: none;
+}
+
+.loader {
+	box-shadow: -1px 1px 46px 500px rgba(0, 0, 0, 0.57);
+	-webkit-box-shadow: -1px 1px 46px 500px rgba(0, 0, 0, 0.57);
+	-moz-box-shadow: -1px 1px 46px 500px rgba(0, 0, 0, 0.57);
+	align-items: center;
+	background-color: #202020;
+	border-radius: 10px;
+	color: $light-green;
+	display: flex;
+	flex-direction: column;
+	font-size: 20px;
+	font-weight: 600;
+	justify-content: center;
+	position: absolute;
+	left: 40%;
+	top: 40%;
+	height: 100px;
+	width: 300px;
+	z-index: 200;
+
+	img {
+		height: 60%;
+		width: 60%;
+	}
+}
+
+.loading {
+	display: block;
+	position: relative;
+	height: 16px;
+	width: 80%;
+	border: 2px solid $white;
+	border-radius: 10px;
+	margin-bottom: 10px;
+	overflow: hidden;
+}
+
+.loading::after {
+	content: '';
+	width: 40%;
+	height: 100%;
+	background: $green;
+	border-radius: 10px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	box-sizing: border-box;
+	animation: animloader 2s linear infinite;
+}
+
+@keyframes animloader {
+	0% {
+		left: 0;
+		transform: translateX(-100%);
+	}
+
+	100% {
+		left: 100%;
+		transform: translateX(0%);
+	}
 }
 
 body {
@@ -160,6 +225,10 @@ button {
 	font-family: inherit;
 }
 
+input:disabled {
+	opacity: 0.5;
+}
+
 button:focus:not(:focus-visible) {
 	outline: none;
 }
@@ -196,6 +265,7 @@ button:focus:not(:focus-visible) {
 	display: flex;
 	justify-content: space-between;
 	margin-bottom: 20px;
+
 	.page-heading-left {
 		align-items: flex-start;
 		display: flex;
@@ -206,6 +276,7 @@ button:focus:not(:focus-visible) {
 .page-filter {
 	font-size: 18px;
 	margin: 0 10px;
+
 	&:first-child {
 		margin-left: 0;
 	}
@@ -225,6 +296,7 @@ button:focus:not(:focus-visible) {
 	justify-content: space-between;
 	margin: 15px 0;
 	padding: 0;
+
 	.page-name {
 		font-size: 32px;
 		font-weight: 700;
@@ -242,12 +314,14 @@ button:focus:not(:focus-visible) {
 	font-weight: 700;
 	margin: 0 10px;
 	padding: 11px 32px;
+
 	a,
 	input,
 	button {
 		color: $white;
 		font-size: 15px;
 		font-weight: 700;
+
 		&:hover {
 			color: $white;
 			text-decoration: none;
@@ -282,6 +356,7 @@ button:focus:not(:focus-visible) {
 .search-container {
 	max-width: 400px;
 	width: 100%;
+
 	input {
 		background: rgba(102, 102, 105, 0.16);
 		background-image: url(../lib/images/search.svg);
@@ -294,6 +369,7 @@ button:focus:not(:focus-visible) {
 		color: $white;
 		padding: 15px 15px 15px 50px;
 		width: 100%;
+
 		&::-webkit-search-cancel-button {
 			filter: saturate(0);
 		}
@@ -329,8 +405,8 @@ button:focus:not(:focus-visible) {
 
 	hr {
 		height: 1px;
-        background-color: $gray;
-        border: none;
+		background-color: $gray;
+		border: none;
 	}
 }
 
@@ -344,6 +420,7 @@ button:focus:not(:focus-visible) {
 	margin-top: 10px;
 	padding: 11px 51px;
 	width: 100%;
+
 	div {
 		width: 20%;
 	}
@@ -369,3 +446,32 @@ button:focus:not(:focus-visible) {
 		margin-bottom: 0;
 	}
 }
+
+.environment-page {
+	height: 100%;
+}
+
+.message {
+	-webkit-box-shadow: -2px 1px 200px 67px rgba(0, 0, 0, 0.75);
+	-moz-box-shadow: -2px 1px 200px 67px rgba(0, 0, 0, 0.75);
+	align-items: center;
+	background-color: $green;
+	border-radius: 10px;
+	box-shadow: -2px 1px 200px 67px rgba(0, 0, 0, 0.75);
+	color: $white;
+	display: flex;
+	font-size: 20px;
+	font-weight: 600;
+	height: 70px;
+	justify-content: center;
+	left: 40%;
+	position: absolute;
+	text-align: center;
+	top: 40%;
+	width: 300px;
+	z-index: 100;
+	&.error-message {
+		background-color: $red;
+	}	
+}
+

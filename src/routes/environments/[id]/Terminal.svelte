@@ -1,56 +1,64 @@
 <script>
-	import { onMount } from 'svelte'
-    import '../../../styles/terminal.scss'
-    const host = "3f86-188-138-181-144.ngrok-free.app"
-    import token from '$lib/stores/token'
-    import { browser } from '$app/environment'
+	import { onMount } from 'svelte';
+	import '../../../styles/terminal.scss';
+	import { basehost } from '$lib/stores/host';
+	import token from '$lib/stores/token';
+	import { browser } from '$app/environment';
+	import Loader from '../../../common/Loader.svelte';
+	import { page } from '$app/stores';
 
-    let socket
-    let userInput = ""
-    let promptLines = []
+	let socket;
+	let userInput = '';
+	let promptLines = [];
+	let terminal;
+	let loading = true;
 
-    let uuid ="7e885389-36cf-4e81-970a-7de55ee8ce6c"
+	onMount(() => {
+		if (browser) {
+			// document.cookie = `X-Authorization=${$token}`
+			let envrionment_uuid = $page.params.id;
 
-    // export function load({ cookies }) {
-    //     // cookies.set('X-Authorization', $token, { path: '/' })
-    // }
+			setTimeout(async () => {
+				socket = new WebSocket(
+					`wss://${$basehost}/v1/terminal?environment_uuid=${envrionment_uuid}`
+				);
+				socket.addEventListener('open', () => {
+					console.log('Opened');
+					loading = false;
+				});
 
-    // onMount(() => {
-    if (browser) {
-        // document.cookie = `X-Authorization=${$token}`
-        
-        socket = new WebSocket(`wss://${host}/v1/terminal?environment_uuid=${uuid}`)
-        socket.addEventListener("open", ()=> {
-            console.log("Opened")
-        })
+				socket.onmessage = (event) => {
+					console.log(event.data);
+					promptLines.push(event.data);
+					promptLines = [...promptLines];
+					scrollToBottom(terminal);
+				};
+			}, 3000);
+		}
+	});
 
-        socket.onmessage = (event) => {
-            console.log(event.data);
-            promptLines.push(event.data)
-            promptLines = [...promptLines]
-        }
-    }
+	function sendCommand() {
+		promptLines.push(userInput);
+		promptLines = [...promptLines];
+		sendRequest(userInput);
+		userInput = '';
+	}
 
-    function sendCommand() {
-        promptLines.push(userInput)
-        promptLines = [...promptLines]
-        sendRequest(userInput)
-        userInput = ""
-    }
+	function sendRequest(command) {
+		console.log(command);
+		socket.send(command);
+	}
 
-    function sendRequest(command) {
-        console.log(command);//Send to server
-        socket.send(command)
-        // promptLines.push("Response example")
-    }
-
-
-
-    
+	const scrollToBottom = async (node) => {
+		node.scroll({ top: node.scrollHeight, behavior: 'smooth' });
+	};
 </script>
 
+{#if loading}
+	<Loader />
+{/if}
 
-<section class="terminal">
+<section class="terminal" bind:this={terminal}>
 	<div class="bar">
 		<svg xmlns="http://www.w3.org/2000/svg" width="54" height="14" viewBox="0 0 54 14">
 			<g fill="none" fill-rule="evenodd" transform="translate(1 1)">
@@ -60,9 +68,12 @@
 			</g>
 		</svg>
 	</div>
-    {#each promptLines as line}
-        <p>{line}</p>
-    {/each}
+	{#each promptLines as line}
+		<p>{line}</p>
+	{/each}
 
-    <form on:submit|preventDefault={sendCommand}><p><span class="prompt">&gt; </span><input type="text" bind:value={userInput}/></p><input type="submit" hidden/></form>
+	<form on:submit|preventDefault={sendCommand}>
+		<p><span class="prompt">&gt; </span><input type="text" bind:value={userInput} /></p>
+		<input type="submit" hidden />
+	</form>
 </section>

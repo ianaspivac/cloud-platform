@@ -5,18 +5,27 @@
 	import { onMount } from "svelte";
 	import axios from "axios";
     import token from "$lib/stores/token.js"
+    import DummyCourseCard from "../../common/DummyCourseCard.svelte";
     import host from "$lib/stores/host.js"
+    import Loader from "../../common/Loader.svelte";
 
     let courses = []
+    let loading = false
 
     onMount(async () => {
         try {
+            loading = true
+            console.log(JSON.stringify($host))
             let response = await axios.get(`${$host}/v1/course`)
-        
-            courses = response.data
-            courseRelation(courses)
-
+            let data = response.data
+            if (data !== null)
+            {
+                courses = data
+                courseRelation(courses)
+                loading = false
+            }
         } catch (e) {
+            loading = false
             console.error('Error fetching data')
         }
     })
@@ -26,12 +35,10 @@
         {name: "Most popular", code: "most-popular", active: false}
     ]
 
-    // {name: "Top Rated", code: "top-rated", active: false},
-    //     {name: "Newest", code: "newest", active: false}
-
-
-    let user = {
-        id: 2
+    let courseCard = {
+        class: "created",
+        btnText: "Create a course",
+        link: "/course/new"
     }
 
     function courseRelation(courses) {
@@ -39,14 +46,6 @@
             course.btnText = "Go to course"
             course.btnClass = "green"
             course.enrolled = false
-            // if (course.created) {
-            //     course.btnText = "Go to created course"
-            //     course.btnClass = "violet"
-            // } else {
-            //     course.btnText = "Go to course"
-            //     course.btnClass = "green"
-            // }
-
         })
     }
 
@@ -65,26 +64,20 @@
         // courseRelation(courses)
     }
 
-   
-
-    // await axios.get(`${$host}/v1/course`,
-    //     {
-    //         headers: {
-    //         Authorization: `Bearer ${$token}`
-    //     }
-    // }).then((response) => {
-    //     console.log(response)
-    // }, (error) => {
-    //     console.log(error);
-    // });
-
 </script>
+
+{#if loading}
+	<Loader />
+{/if}
 
 <div>
     <PageHeadingCourses bind:filters={filters} name={name} search={searchCourse}/>
     <div class="list-courses">
-        {#each courses as course}
-            <Course course={course}/>
-        {/each}
+        {#if courses.length}
+            {#each courses as course}
+                <Course course={course}/>
+            {/each}
+        {/if}
+        <DummyCourseCard course={courseCard}/>
     </div>
 </div>

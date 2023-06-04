@@ -1,0 +1,13 @@
+@import "./styles.scss";
+
+.environments-header {
+    width: 100%;
+}
+
+.environments-page {
+    h2 {
+        color: $gray;
+        font-size: 26px;
+        margin: auto;
+    }
+}

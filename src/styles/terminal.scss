@@ -1,18 +1,19 @@
 @import "./styles.scss";
 
+
 .terminal {
     position: relative;
     font-family: monospace;
     font-size: 1.5rem;
-    background: #333;
+    background: #1f1e1e;
     padding: 0.7rem 1rem;
     margin: 5rem;
     border-radius: 0.5rem;
     color: #b8b8b8;
     box-shadow: 1px 1px #ccc;
     margin: 0;
-    max-height: 80vh;
-    min-height: 25rem;
+    max-height: 100%;
+    min-height: 80vh;
     min-width: 35em;
     overflow: hidden;
     overflow-y: auto;
@@ -32,6 +33,7 @@
 
     input {
         color: $white;
+        width: 95%;
     }
 }
 

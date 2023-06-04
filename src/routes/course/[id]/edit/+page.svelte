@@ -11,11 +11,16 @@
 	let course = {
 		id: $page.params.id
 	}
-	let actions = [
-        {class: "violet-fill", name: "Preview", method: ()=> editor.preview()},
-		{class: "green-fill", link: `/course/${course.id}`, name: "Go to course"},
+	
+	let actionsPreview = [
+        {class: "violet-fill", name: "Preview", method: ()=> editor.preview()}
     ]
 
+	let actionsEdit = [
+        {class: "green-fill", name: "Editor", method: ()=> editor.preview()}
+    ]
+
+	$: actions = actionsPreview
 </script>
 
 <div class="course-page">

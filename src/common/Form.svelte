@@ -5,6 +5,7 @@
     export let fields;
     export let submitValue;
     export let action;
+    export let customclass = "";
 
     $: disabled = isInvalid(fields)
 
@@ -27,9 +28,9 @@
     }
 </script>
 
-<form on:submit|preventDefault={submit}>
+<form on:submit|preventDefault={submit} class={customclass}>
     {#each fields as field}
         <FormInput name={field.name} fullName={field.fullName} labelId={field.labelId} inputType={field.inputType} inputId={field.inputId} bind:inputValue={field.value} bind:error={field.error}/>
     {/each}
-    <div class="submit-container"><input type="Submit" value={submitValue} disabled={disabled}/></div>
+    <div class="submit-container"><input type="submit" value={submitValue} disabled={disabled}/></div>
 </form>
