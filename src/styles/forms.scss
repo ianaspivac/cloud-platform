@@ -115,3 +115,47 @@ $form-gradient: linear-gradient(135.88deg, #141439 0%, rgba(41, 24, 63, 0.54) 34
         }
     }
 }
+
+.common-form {
+    @include gray-card;
+    --item-color: $black;
+    --input-color: $black;
+
+    flex-direction: column;
+    padding: 20px;
+
+    .form-input-container,
+    input {
+        width: 100%;
+    }
+
+    input[type=submit] {
+        @include green-link-btn;
+        background-color: $green;
+    }
+
+    .submit-container {
+        align-self: flex-end;
+    }
+
+    input,
+    textarea {
+        background: $white;
+        border: 1px solid #9B9A9A;
+        border-radius: 5px;
+        box-shadow: inset 0px 0px 6px 1px rgba(230, 223, 223, 0.25);
+        color: $black;
+        font-size: 16px;
+        margin-bottom: 5px;
+        padding: 10px 15px;
+        width: 100%;
+    }
+
+   .svelte-select {
+        margin-bottom: 5px !important;
+    }
+
+    textarea {
+        height: 30vh;
+    }
+}

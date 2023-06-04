@@ -56,16 +56,34 @@ $clear: transparent;
     width: 100%;
 }
 
-.editor__chapter {
-    padding-bottom: 15px;
-    padding-top: 0;
+.editor__assignment {
+    font-weight: 700;
+}
 
+.editor__assignment,
+.svelte-select {
+    margin-bottom: 10px !important;
+}
+
+.editor__chapter {
     input {
-        border-bottom: 1px solid $gray;
+        background: $white;
+        border: 1px solid #9B9A9A;
+        border-radius: 5px;
+        box-shadow: inset 0px 0px 6px 1px rgba(230, 223, 223, 0.25);
+        color: $black;
         font-size: 20px;
-        font-weight: 600;
+        font-weight: 800;
+        margin-bottom: 10px;
+        padding: 10px 15px;
+        width: 100%;
     }
 }
+
+.svelte-select {
+    font-weight: 800;
+    max-width: 200px;
+} 
 
 .chapters-list-title,
 .chapters-list li {
@@ -90,8 +108,9 @@ $clear: transparent;
 
     .btn-container {
         margin-left: 0;
-        max-width: 200px;
+        max-width: 230px;
         margin-top: 20px;
+        width: fit-content;
     }
 
     .page-container_grade {
@@ -374,6 +393,10 @@ $clear: transparent;
         color: $white;
     }
 
+    .editor__chapter input {
+        color: $black;
+    }
+
     .option {
         height: 15px;
         width: 15px;
@@ -441,11 +464,62 @@ $clear: transparent;
 
     .editor__actions {
         display: flex;
+        justify-content: flex-end;
         margin: 0;
         margin-top: 20px;
+        .editor__clear {
+            margin-right: auto;
+        }
     }
 
     form {
         height: 100%;
+    }
+}
+
+.course-description-page {
+    h1 {
+        text-align: left;
+    }
+
+    .course-banner {
+        border-radius: 5px;
+        display: flex;
+        align-items: flex-end;
+        height: 200px;
+        margin-bottom: 20px;
+        padding: 20px;
+        position: relative;
+        width: 100%;
+        &::after {
+            background: $background-purple-green;
+            border: 1px solid;
+            border-image-source: $border-purple-green;
+            border-radius: 6px;
+            box-shadow: $shadow-card-course;
+            content: "";
+            backdrop-filter: blur(2px);
+            z-index: -1;
+        }
+
+        img,
+        &::after {
+            border-radius: 5px;
+            height: 100%;
+            left: 0;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+    }
+
+    img {
+        object-fit: cover;
+        z-index: -2;
+    }
+
+    p {
+        font-size: 18px;
+        font-weight: 500;
     }
 }

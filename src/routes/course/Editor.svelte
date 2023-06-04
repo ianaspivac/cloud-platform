@@ -17,7 +17,6 @@
     let contentTouched = false
     let previewMode = false
 
-
     $: currentActive =  $page.url.searchParams.get("page_id") || pages[0].id
     $: currentPage = pages.find(page => page.id == currentActive)
 
@@ -56,6 +55,10 @@
 
     export function preview() {
         previewMode = !previewMode
+    }
+
+    export function isPreview() {
+        return previewMode
     }
  
     function deleteChapter(index) {

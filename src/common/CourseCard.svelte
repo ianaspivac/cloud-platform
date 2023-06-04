@@ -45,7 +45,7 @@
             Enrolled
         {/if}
     </div>
-    <a href="/course/{course.uuid}" class="card__btn btn-container {course.btnClass}">
+    <a href="/course/{course.uuid}/description" class="card__btn btn-container {course.btnClass}">
         {course.btnText}
     </a>
 </div>
